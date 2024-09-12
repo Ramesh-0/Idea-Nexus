@@ -1,0 +1,35 @@
+/* Import Tailwind's base styles */
+@tailwind base;
+
+/* Import Tailwind's component styles */
+@tailwind components;
+
+/* Import Tailwind's utility styles */
+@tailwind utilities;
+
+/* Optional: Add custom styles here */
+
+/* Example custom styles for the background color used in LoginPage */
+.bg-purple-100 {
+  background-color: #f3e8ff; /* Tailwind's default color for bg-purple-100 */
+}
+
+/* Example custom styles for the button */
+.bg-purple-600 {
+  background-color: #6d28d9; /* Tailwind's default color for bg-purple-600 */
+}
+
+.hover\:bg-purple-700:hover {
+  background-color: #5b21b6; /* Tailwind's default color for hover:bg-purple-700 */
+}
+
+/* Example custom styles for the rounded corners and shadow */
+.rounded-lg {
+  border-radius: 0.5rem; /* Tailwind's default border-radius for rounded-lg */
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tailwind's default shadow-md */
+}
+
+/* Optional: Add more custom styles as needed */
