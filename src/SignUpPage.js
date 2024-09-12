@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Input from './components/ui/input';
 import Button from './components/ui/button';
 import Label from './components/ui/label';
-import axios from 'axios'; // Import axios
+import axios from 'axios';
 
 export default function SignUpPage() {
   const [username, setUsername] = useState('');
@@ -18,27 +18,31 @@ export default function SignUpPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (password === confirmPassword) {
-      try {
-        const response = await axios.post('http://localhost:3000/signup', {
-          username,
-          email,
-          password,
-          institute,
-          gender,
-        });
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
 
-        // Assuming the response indicates successful signup
-        if (response.status === 201) {
-          navigate('/login'); // Redirect to login page after successful signup
-        }
+    try {
+      const response = await axios.post('http://localhost:3000/api/signup', {
+        username,
+        email,
+        password,
+        institute,
+        gender,
+      });
 
-        setError(null); // Clear error if signup is successful
-      } catch (error) {
+      if (response.status === 201) {
+        navigate('/login'); // Redirect to login page after successful signup
+      } else {
         setError('Signup failed. Please try again.');
       }
-    } else {
-      setError('Passwords do not match');
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.error) {
+        setError(error.response.data.error);
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+      }
     }
   };
 
