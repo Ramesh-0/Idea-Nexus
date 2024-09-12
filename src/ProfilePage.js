@@ -20,9 +20,9 @@ export default function ProfilePage() {
   const [genderState, setGender] = useState(gender);
   const [isEditing, setIsEditing] = useState(false);
   const [posts] = useState([
-    { id: 1, title: 'Post 1', date: '2022-01-01', description: 'This is the first post' },
-    { id: 2, title: 'Post 2', date: '2022-01-15', description: 'This is the second post' },
-    { id: 3, title: 'Post 3', date: '2022-02-01', description: 'This is the third post' },
+    { id: 1, title: 'Post 1', date: '2022-01-01', description: 'This is the first post', status: 'approved' },
+    { id: 2, title: 'Post 2', date: '2022-01-15', description: 'This is the second post', status: 'pending' },
+    { id: 3, title: 'Post 3', date: '2022-02-01', description: 'This is the third post', status: 'rejected' },
   ]);
 
   const handleSaveChanges = () => {
@@ -47,6 +47,19 @@ export default function ProfilePage() {
         return 'https://example.com/avatar-other.png';
       default:
         return 'https://example.com/avatar-default.png';
+    }
+  };
+
+  const renderStatusSymbol = (status) => {
+    switch (status) {
+      case 'approved':
+        return <span className="text-green-500">✔️ Approved</span>;
+      case 'pending':
+        return <span className="text-yellow-500">⏳ Pending</span>;
+      case 'rejected':
+        return <span className="text-red-500">❌ Rejected</span>;
+      default:
+        return <span className="text-gray-500">Unknown</span>;
     }
   };
 
@@ -142,6 +155,9 @@ export default function ProfilePage() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-gray-500">{post.description}</p>
+                  <div className="mt-2">
+                    {renderStatusSymbol(post.status)}
+                  </div>
                 </CardContent>
               </Card>
             ))}
